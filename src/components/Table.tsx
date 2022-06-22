@@ -4,8 +4,13 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import ProductType from "../models/product";
+import { Alert } from "@mui/material";
 
-const ProductTable: React.FC<{ products: ProductType[] }> = (props) => {
+const ProductTable: React.FC<{ products: ProductType[] }> = ({ products }) => {
+  if (products.length === 0) {
+    return <Alert severity="error">No products found!</Alert>;
+  }
+
   return (
     <Table sx={{ maxWidth: 1000 }} aria-label="simple table">
       <TableHead>
@@ -16,7 +21,7 @@ const ProductTable: React.FC<{ products: ProductType[] }> = (props) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {props.products.map((row) => (
+        {products.map((row) => (
           <TableRow
             key={row.name}
             sx={{
@@ -38,5 +43,3 @@ const ProductTable: React.FC<{ products: ProductType[] }> = (props) => {
 };
 
 export default ProductTable;
-
-// "&:last-child td, &:last-child th": { border: 0 }
